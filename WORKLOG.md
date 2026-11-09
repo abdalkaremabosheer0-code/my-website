@@ -24,9 +24,9 @@
 ## Status (updated 2026-11-09, late night)
 
 - **Working:** Home page (hero, marquees, torn-paper sections, tilt cards, step illustrations, CTA), Vocabulary page (filters, search, known tracker, audio), routing (`/`, `/app`, `/vocabulary`), 52 images in `public/images/`.
-- **Verified by the user (screenshot):** the hero (TALK OUT LOUD! with flying pieces) renders well and fits the first screen.
+- **Verified by the user (screenshots):** the hero (TALK OUT LOUD! with flying pieces) renders well and fits the first screen; after the second position fix the K of TALK and the top bubble are clear.
 - **Temporary:** `/app` shows the Vocabulary page until the dashboard exists.
-- **Repo:** GitHub, branch `main`, last known commit `56c0e1c` ("add handoff doc").
+- **Repo:** GitHub, branch `main`. Latest pushed commit: run `git log -1` (do not trust a hash written here; see the Log for recorded ones).
 
 ## Open items
 
@@ -65,6 +65,10 @@ _(Claude fills this at the start of each session after reading the diff. Write "
 ---
 
 ## Log (newest first)
+
+### 2026-11-09 (late night, 3)
+- **User:** approved the hero after the second fix. Committed and pushed it: commit `cc85fdd` "hero: fix TALK overlap and top bubble" (included `Home.jsx`, `HANDOFF.md` and the new `WORKLOG.md`; previous pushed commit `56c0e1c`). Git showed only harmless LF/CRLF line-ending warnings.
+- **Claude:** removed the commit hash from the Status section (it goes stale after every push). Open for the user: confirm the repo is Private.
 
 ### 2026-11-09 (late night, 2)
 - **User:** approved the new word/character positions but pointed out that the character's head still covers the K of TALK and the yellow "SAY IT!" bubble is under the nav bar. Asked to fix everything.
