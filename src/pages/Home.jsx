@@ -22,7 +22,7 @@ const steps = [
 
 // قطع الهيرو: l/t/w بنسبة من المسرح، fx/fy نقطة بداية الطيران
 const heroPieces = [
-  { n: 'hero-guy', l: '27%', t: '20%', w: '42%', r: '0deg', fx: '0', fy: '70vh', d: 0.2, depth: 20, z: 3, spin: '0deg' },
+ { n: 'hero-guy', l: '20%', t: '42%', w: '36%', r: '0deg', fx: '0', fy: '70vh', d: 0.2, depth: 20, z: 3, spin: '0deg' },
   { n: 'bubble-ohyeah', l: '6%', t: '3%', w: '16%', r: '-8deg', fx: '-60vw', fy: '-20vh', d: 0.3, depth: 22 },
   { n: 'bubble-sayit-yellow', l: '43%', t: '-3%', w: '12.5%', r: '6deg', fx: '0', fy: '-60vh', d: 0.4, depth: -26 },
   { n: 'megaphone-a', l: '87%', t: '20%', w: '11%', r: '12deg', fx: '60vw', fy: '-10vh', d: 0.5, depth: 30 },
