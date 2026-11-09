@@ -1,16 +1,17 @@
 # HANDOFF: "sayit." English-learning website
 
 > **Read this first.** This file lets any Claude (any chat, any account) continue this project without the user repeating himself.
-> Last updated: 2026-11-09. Keep the **Session log** at the bottom up to date at the end of every session.
+> Last updated: 2026-11-09. This file is the stable reference. The moving parts (status, open items, change log) live in **`WORKLOG.md`**.
 
 ---
 
 ## 0. How to use this file (for Claude)
 
 1. The user will upload a zip of the project (code snapshot) plus, sometimes, `recent-changes.txt` (output of `git log -8 -p --stat`).
-2. Unzip, read this file, then read `src/` before answering. Compare the code with section 5 to see what the user changed on his own.
-3. At the end of the session, **output an updated Session log entry** (and any changed sections) so the user can paste it into this file and push to GitHub.
-4. If something in the code contradicts this file, trust the code, tell the user, and fix this file.
+2. Unzip and read, in this order: this file, then **`WORKLOG.md`** (current status, open items, log), then `src/`.
+3. Compare the code and commits with the last entry in `WORKLOG.md`. Anything different was changed by the user. Report it to him in 3 lines and record it under "User changes" in the worklog.
+4. At the end of the session, **output the updated sections of `WORKLOG.md`** (Status, Open items, new Log entry) so the user can paste them in and push. Update this file only when something stable changes (decisions, code map, assets).
+5. If something in the code contradicts these files, trust the code, tell the user, and fix the files.
 
 ---
 
@@ -137,7 +138,7 @@ For the same character in new poses, give Gemini the reference image and say "sa
 
 ---
 
-## 7. Status and open items
+## 7. Status and open items (snapshot; the live version is in `WORKLOG.md`)
 
 **Unverified:** the latest hero (flying pieces, TALK OUT LOUD!) had been delivered but the user had **not yet sent a screenshot**. Positions and sizes in `heroPieces` and the `.word` font sizes are estimates and probably need tuning.
 
@@ -173,14 +174,6 @@ Upload `project.zip` and `recent-changes.txt` to the new chat. `git archive` lea
 
 ---
 
-## 9. Session log (append newest at the bottom)
+## 9. Session log
 
-### 2026-11-09, Claude (claude.ai chat)
-- Created Vite React project, set up VS Code, explained basics.
-- Iterated design: cream/blue (rejected) to dark collage (chosen) after he picked a Dribbble reference for the mood.
-- Built Home (marquee, torn-paper sections, 3D tilt cards, parallax, scroll bar, per-letter animation) and the Vocabulary page (filters, search, known tracker, audio).
-- Added routing: `/` Home, `/app` and `/vocabulary` Vocabulary; Nav switches by route.
-- Removed custom cursor, hero level chip, outlined numbers.
-- User generated four Gemini sticker sheets; they were chroma-keyed into 52 PNGs in `public/images/`.
-- Rebuilt hero as TALK OUT LOUD! with fly-in-and-stick pieces; added poses to cards, step illustrations, and CTA characters.
-- Open: hero screenshot review and tuning; dashboard; remaining pages; DB and deploy later.
+Moved to **`WORKLOG.md`** (status, open items, and the dated log of changes by the user and by Claude).

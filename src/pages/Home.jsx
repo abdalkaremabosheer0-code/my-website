@@ -22,21 +22,21 @@ const steps = [
 
 // قطع الهيرو: l/t/w بنسبة من المسرح، fx/fy نقطة بداية الطيران
 const heroPieces = [
- { n: 'hero-guy', l: '20%', t: '42%', w: '36%', r: '0deg', fx: '0', fy: '70vh', d: 0.2, depth: 20, z: 3, spin: '0deg' },
+  { n: 'hero-guy', l: '26%', t: '26%', w: '40%', r: '0deg', fx: '0', fy: '70vh', d: 0.2, depth: 20, z: 3, spin: '0deg' },
   { n: 'bubble-ohyeah', l: '6%', t: '3%', w: '16%', r: '-8deg', fx: '-60vw', fy: '-20vh', d: 0.3, depth: 22 },
-  { n: 'bubble-sayit-yellow', l: '43%', t: '-3%', w: '12.5%', r: '6deg', fx: '0', fy: '-60vh', d: 0.4, depth: -26 },
-  { n: 'megaphone-a', l: '87%', t: '20%', w: '11%', r: '12deg', fx: '60vw', fy: '-10vh', d: 0.5, depth: 30 },
+  { n: 'bubble-sayit-yellow', l: '42%', t: '1%', w: '12.5%', r: '6deg', fx: '0', fy: '-60vh', d: 0.4, depth: -26 },
+  { n: 'megaphone-a', l: '88%', t: '14%', w: '10.5%', r: '12deg', fx: '60vw', fy: '-10vh', d: 0.5, depth: 30 },
   { n: 'label-sayit', l: '1%', t: '60%', w: '15%', r: '-10deg', fx: '-60vw', fy: '20vh', d: 0.6, depth: -20 },
   { n: 'megaphone-b', l: '5%', t: '76%', w: '13%', r: '10deg', fx: '-60vw', fy: '40vh', d: 0.7, depth: 28 },
   { n: 'label-gowild', l: '18%', t: '80%', w: '14%', r: '5deg', fx: '0', fy: '60vh', d: 0.8, depth: -18 },
   { n: 'chat-heart', l: '62%', t: '80%', w: '8%', r: '-8deg', fx: '30vw', fy: '60vh', d: 0.9, depth: 24 },
   { n: 'badge-fun', l: '80%', t: '74%', w: '15%', r: '-7deg', fx: '60vw', fy: '40vh', d: 1.0, depth: -22 },
   { n: 'star-pink-2', l: '90%', t: '3%', w: '3.5%', r: '10deg', fx: '40vw', fy: '-40vh', d: 1.1, depth: -40 },
-  { n: 'spark-yellow-1', l: '40%', t: '8%', w: '3%', r: '0deg', fx: '-20vw', fy: '-40vh', d: 1.15, depth: 36 },
+  { n: 'spark-yellow-1', l: '30%', t: '3%', w: '3%', r: '0deg', fx: '-20vw', fy: '-40vh', d: 1.15, depth: 36 },
   { n: 'zigzag-1', l: '1%', t: '38%', w: '4%', r: '-8deg', fx: '-40vw', fy: '0', d: 1.2, depth: 30 },
   { n: 'zigzag-3', l: '72%', t: '68%', w: '7%', r: '6deg', fx: '40vw', fy: '30vh', d: 1.25, depth: -30 },
   { n: 'spark-pink-1', l: '33%', t: '80%', w: '3.5%', r: '0deg', fx: '-10vw', fy: '50vh', d: 1.3, depth: 32 },
-  { n: 'star-yellow-1', l: '93%', t: '56%', w: '3.5%', r: '14deg', fx: '40vw', fy: '10vh', d: 1.35, depth: -34 },
+  { n: 'star-yellow-1', l: '94%', t: '66%', w: '3.5%', r: '14deg', fx: '40vw', fy: '10vh', d: 1.35, depth: -34 },
   { n: 'star-pink-1', l: '13%', t: '44%', w: '3%', r: '-10deg', fx: '-40vw', fy: '10vh', d: 1.4, depth: 38 },
   { n: 'spark-yellow-2', l: '47%', t: '90%', w: '3%', r: '0deg', fx: '10vw', fy: '50vh', d: 1.45, depth: -28 },
 ]
@@ -59,9 +59,9 @@ function Piece({ n, l, t, w, r = '0deg', fx = '0', fy = '0', d = 0, depth = 0, z
   )
 }
 
-function Word({ text, l, t, size, r, cls, depth }) {
+function Word({ text, l, t, size, r, cls, depth, z = 2 }) {
   return (
-    <div className="px" style={{ left: l, top: t, '--d': depth, zIndex: 2 }}>
+    <div className="px" style={{ left: l, top: t, '--d': depth, zIndex: z }}>
       <span className={`word ${cls}`} style={{ '--r': r, fontSize: size }} aria-hidden="true">
         <Letters text={text} />
       </span>
@@ -171,10 +171,10 @@ export default function Home() {
         <div className="spot" />
         <h1 className="sr-only">Talk out loud! Learn English</h1>
 
-        <div className="stage">
-          <Word text="TALK" l="1%" t="16%" size="18.5cqw" r="-6deg" cls="yellow" depth={14} />
-          <Word text="OUT" l="53%" t="4%" size="17.5cqw" r="4deg" cls="pinkw" depth={-12} />
-          <Word text="LOUD!" l="49%" t="38%" size="15.5cqw" r="-4deg" cls="pinkw" depth={10} />
+        <div className="stage" style={{ marginTop: 14 }}>
+          <Word text="TALK" l="0%" t="14%" size="16cqw" r="-6deg" cls="yellow" depth={14} z={2} />
+          <Word text="OUT" l="56%" t="3%" size="15.5cqw" r="4deg" cls="pinkw" depth={-12} z={2} />
+          <Word text="LOUD!" l="62%" t="36%" size="13cqw" r="-4deg" cls="pinkw" depth={10} z={5} />
 
           {heroPieces.map((p) => (
             <Piece key={p.n} {...p} />
