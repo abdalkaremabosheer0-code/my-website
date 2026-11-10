@@ -8,7 +8,7 @@
 ## 0. How to use this file (for Claude)
 
 1. The user will upload a zip of the project (code snapshot) plus, sometimes, `recent-changes.txt` (output of `git log -8 -p --stat`).
-2. Unzip and read, in this order: this file, then **`WORKLOG.md`** (current status, open items, log), then `src/`.
+2. Unzip and read, in this order: this file, then **`PSYCHOLOGY.md`** (the product's learning design, binding), then **`WORKLOG.md`** (current status, open items, log), then `src/`.
 3. Compare the code and commits with the last entry in `WORKLOG.md`. Anything different was changed by the user. Report it to him in 3 lines and record it under "User changes" in the worklog.
 4. At the end of the session, **output the updated sections of `WORKLOG.md`** (Status, Open items, new Log entry) so the user can paste them in and push. Update this file only when something stable changes (decisions, code map, assets).
 5. If something in the code contradicts these files, trust the code, tell the user, and fix the files.
@@ -47,7 +47,7 @@
 
 ## 2. Project in one paragraph
 
-A bold, collage-style English-learning website for Arabic speakers. The **home page is a visual showcase only** (no logic) with a **Start** button that enters the real site. Inside the site, pages are calmer (same colors) and use **Arabic for meanings and translations**; the main interface language is English. Front end first; database, auth and cloud hosting come later.
+A bold, collage-style website that trains Arabic speakers to **speak American English clearly, confidently and without hesitating** (speaking-first; full design in `PSYCHOLOGY.md`). The **home page is a visual showcase only** (no logic) with a **Start** button that enters the real site. Inside the site, pages are calmer (same colors) and use **Arabic for meanings and translations**; the main interface language is English. Front end first; database, auth and cloud hosting come later.
 
 ---
 
@@ -56,10 +56,11 @@ A bold, collage-style English-learning website for Arabic speakers. The **home p
 **Chosen**
 - Stack: React + Vite (JavaScript), `react-router-dom`, plain CSS in one file, Oxlint, npm. Node v24.
 - Site type: a website for teaching English "in his own way and design", standalone.
+- **Product focus (decided 2026-11-09):** the whole site revolves around speaking: correct pronunciation, General American accent, confidence, no hesitation, keep talking. The user has this problem himself and delegated the method to Claude. See `PSYCHOLOGY.md`. He accepts paid APIs and API keys later when needed.
 - Style: dark background, hot pink + yellow, collage / sticker / torn paper, brush-marker headlines. Reference mood: bold and colorful, modern.
 - **Two-level identity:** home page is bold and artistic; inner learning pages are the same palette but calmer and more readable.
 - Main interface in **English**; Arabic only inside pages (meanings, example translations, hints) and set with `dir="rtl"`.
-- Home page stays **non-functional/showcase**; **Start** goes to `/app`, which currently shows the Vocabulary page temporarily. A dashboard will replace it.
+- Home page stays **non-functional/showcase**; **Start** goes to `/app`, which currently shows the Shadowing page temporarily. A dashboard will replace it.
 - Hero headline: **TALK OUT LOUD!** Site name **"sayit."** is a **placeholder**.
 - Image assets are generated with Gemini on a **solid green sheet**, then cut into transparent PNGs by script (see section 6).
 - Pieces "fly in and stick" (cut-and-assemble effect) when they enter the screen.
@@ -92,10 +93,12 @@ Dependencies added beyond the Vite React template: `react-router-dom`. Fonts loa
 index.html
 src/
   main.jsx                (Vite default)
-  App.jsx                 BrowserRouter; ScrollToTop; routes: "/" Home, "/app" Vocabulary (temporary), "/vocabulary" Vocabulary
-  components/Nav.jsx      floating glass pill nav; on "/" shows What you get / How it works / Start; elsewhere Home / Vocabulary
+  App.jsx                 BrowserRouter; ScrollToTop; routes: "/" Home, "/app" Shadowing (temporary entry until the dashboard), "/shadowing", "/vocabulary"
+  components/Nav.jsx      floating glass pill nav; on "/" shows What you get / How it works / Start; elsewhere Home / Shadowing / Vocabulary
   pages/Home.jsx          showcase landing page (details below)
-  pages/Vocabulary.jsx    first inner page
+  pages/Vocabulary.jsx    inner page: vocabulary cards
+  pages/Shadowing.jsx     inner page: speaking practice (core of the product)
+  pages/Shadowing.css     styles for that page only (new pages may keep their own CSS next to them)
   index.css               ALL styles (tokens, hero, marquee, paper sections, cards, vocab page, animations, mobile, reduced-motion)
 public/images/*.png       52 transparent sticker/collage PNGs (list in section 6)
 ```
@@ -110,6 +113,9 @@ public/images/*.png       52 transparent sticker/collage PNGs (list in section 6
 - **Paper section** (torn top edge, noise texture, grid): title "Pick your move." with underline/arrow/burst pieces; 4 `TiltCard`s (3D tilt + shine) each with a character pose image sticking out of the corner.
 - **Dark section:** "Simple. Fast. Yours." with 3 illustrated steps; pink reverse marquee of slogans; "READY?" CTA with `pose-wave` and `pose-thumbs`; footer.
 - **Fly system:** `<Piece>` wraps an image in `.px` (absolute, parallax via CSS vars `--mx/--my/--d`). An `IntersectionObserver` observes the **parent** (not the image, because it starts off-screen) and adds `in` to child `.fly` elements; after the transition ends `done` is added so hover wiggle has no delay. `--spin: 0deg` is used for characters so they do not rotate while flying.
+
+### Shadowing.jsx (front end only, browser APIs)
+12 sentences (tags: everyday / connected speech / keep talking) each with stress pattern, Arabic meaning and an Arabic pronunciation note. Per sentence, 4 steps: **Listen** (browser text-to-speech, slow and normal, voice picker that prefers en-US "Natural" voices), **Say it** (record with `MediaRecorder`, max 20 s), **Compare** (play mine, or model then mine), **Check** (Web Speech `SpeechRecognition`, en-US; words are matched in order with aliases gonna/wanna/gotta/kinda/lemme; shows a percentage and highlights matched/missed words; it checks understandability, not accent). Stats in `localStorage` key `sayit-speaking-stats` (`sec` spoken, `tries` per sentence id); selected voice in `sayit-voice`. Needs Chrome or Edge, internet for recognition, and microphone permission (works on localhost).
 
 ### Vocabulary.jsx
 10 sample words (levels A2 to C1) with: English word, part of speech and pronunciation hint, Arabic meaning, example sentence with the word highlighted, Arabic translation of the example, speaker buttons (Web Speech API, `en-US`, rate 0.85). Level filters, status filters (All / Learning / Known), search (English or Arabic), "عرفتها" toggle, progress bar. Known words stored in `localStorage` key `sayit-known-words`. Cards have a small tape strip and tilt/pink shadow on hover.
@@ -145,7 +151,7 @@ For the same character in new poses, give Gemini the reference image and say "sa
 **Next, in suggested order**
 1. Review hero screenshot and tune layout.
 2. Mobile layout for the hero (currently only shrinks).
-3. **Dashboard** at `/app`: sidebar navigation, progress ring, stats (known words, level, streak), "continue where you left off", section cards. Replaces the temporary Vocabulary route.
+3. **Dashboard** at `/app`: sidebar navigation, progress ring, stats (known words, level, streak), "continue where you left off", section cards. Replaces the temporary Shadowing entry route; should present the speaking ladder as the user's path.
 4. Reading page (text with highlighted words, tap a word for Arabic and audio).
 5. Listening, then Writing (connectors, sentence ordering).
 6. Expand vocabulary to about 40+ words; give inner pages a touch of the collage style (tape, tilt) without hurting readability.
@@ -168,9 +174,9 @@ git add -A
 git commit -m "short clear message about what changed"
 git push
 git archive --format=zip -o project.zip HEAD
-git log -8 -p --stat > recent-changes.txt
+git log -8 -p --stat | Out-File -Encoding utf8 recent-changes.txt
 ```
-Upload `project.zip` and `recent-changes.txt` to the new chat. `git archive` leaves out `node_modules` and `.git`, so the zip stays small. Meaningful commit messages help Claude see what changed.
+Upload `project.zip` and `recent-changes.txt` to the new chat. (On Windows PowerShell use `Out-File -Encoding utf8` as above; a plain `>` writes UTF-16 and the file becomes unreadable. Add `project.zip` and `recent-changes.txt` to `.gitignore`.) In the Claude account used for the next session, "Code execution and file creation" must be enabled so it can open the zip. `git archive` leaves out `node_modules` and `.git`, so the zip stays small. Meaningful commit messages help Claude see what changed.
 
 ---
 

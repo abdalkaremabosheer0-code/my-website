@@ -21,11 +21,13 @@
 
 ---
 
-## Status (updated 2026-11-09, late night)
+## Status (updated 2026-11-10)
 
 - **Working:** Home page (hero, marquees, torn-paper sections, tilt cards, step illustrations, CTA), Vocabulary page (filters, search, known tracker, audio), routing (`/`, `/app`, `/vocabulary`), 52 images in `public/images/`.
 - **Verified by the user (screenshots):** the hero (TALK OUT LOUD! with flying pieces) renders well and fits the first screen; after the second position fix the K of TALK and the top bubble are clear.
-- **Temporary:** `/app` shows the Vocabulary page until the dashboard exists.
+- **Product direction:** speaking-first (`PSYCHOLOGY.md`).
+- **New, untested by the user:** Shadowing page (`/shadowing`, also `/app`). Needs mic permission and Chrome/Edge.
+- **Temporary:** `/app` shows the Shadowing page until the dashboard exists.
 - **Repo:** GitHub, branch `main`. Latest pushed commit: run `git log -1` (do not trust a hash written here; see the Log for recorded ones).
 
 ## Open items
@@ -33,6 +35,10 @@
 Priority order. Mark `[x]` when done and leave the line in place; add a matching entry to the Log.
 
 **Next**
+- [ ] User tests Shadowing (mic permission, voice quality, did the check work?) and reports what felt wrong.
+- [ ] Level 6 page: free speaking with a timer, pause counter and the 4/3/2 routine (no-stop mode).
+- [ ] Level 1 page: sounds for Arabic speakers (minimal pairs with audio).
+- [ ] Privacy note about speech recognition (audio goes to the browser vendor).
 - [x] User sends hero screenshot; Claude tunes `heroPieces` positions and `.word` sizes. (Hero approved by the user; no tuning requested.)
 - [x] Optional: separate OUT a little from TALK and show more of the L in LOUD! (the character's hand covers it). Done in `Home.jsx` (new word sizes/positions, LOUD! above the character).
 - [ ] Mobile layout for the hero (it only shrinks now).
@@ -65,6 +71,14 @@ _(Claude fills this at the start of each session after reading the diff. Write "
 ---
 
 ## Log (newest first)
+
+### 2026-11-10 (handoff to another Claude account)
+- **User:** extracted the update zip, ran the Shadowing page and tried at least one recording (the sentence "I'm gonna grab a coffee." shows the practiced check mark). Is now continuing in a different Claude account using `project.zip` from GitHub and this file set.
+- **Claude:** fixed the snapshot command in `HANDOFF.md` section 8 (PowerShell `>` writes UTF-16; use `Out-File -Encoding utf8`). Gave the user the steps and a starter prompt for the new chat.
+
+### 2026-11-10
+- **User:** pushed `0beab96` ("update worklog"). Decided the whole site must revolve around speaking: correct pronunciation, American accent, confident speech without hesitating or stopping. Said he struggles with this himself, left the method to Claude, and is open to paid APIs and keys later. Approved the speaking-first vision.
+- **Claude:** wrote `PSYCHOLOGY.md` (promise, why people hesitate, principles, 6-level speaking ladder, anti-hesitation toolkit, pronunciation focus, technology limits, motivation rules). Built the Shadowing page (`Shadowing.jsx` + `Shadowing.css`), made `/app` open it, added it to the Nav. Updated `HANDOFF.md` (read order, product focus, code map). Delivered as one zip that extracts over the project. Suggested commit: `speaking-first: add PSYCHOLOGY.md and Shadowing page`.
 
 ### 2026-11-09 (late night, 3)
 - **User:** approved the hero after the second fix. Committed and pushed it: commit `cc85fdd` "hero: fix TALK overlap and top bubble" (included `Home.jsx`, `HANDOFF.md` and the new `WORKLOG.md`; previous pushed commit `56c0e1c`). Git showed only harmless LF/CRLF line-ending warnings.

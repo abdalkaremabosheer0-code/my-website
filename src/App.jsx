@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Nav from './components/Nav.jsx'
 import Home from './pages/Home.jsx'
 import Vocabulary from './pages/Vocabulary.jsx'
+import Shadowing from './pages/Shadowing.jsx'
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -24,8 +25,9 @@ export default function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* مؤقتاً: /app يعرض المفردات إلى أن نبني الداشبورد */}
-        <Route path="/app" element={<Vocabulary />} />
+        {/* مؤقتاً: /app يفتح Shadowing إلى أن نبني الداشبورد */}
+        <Route path="/app" element={<Shadowing />} />
+        <Route path="/shadowing" element={<Shadowing />} />
         <Route path="/vocabulary" element={<Vocabulary />} />
       </Routes>
     </BrowserRouter>

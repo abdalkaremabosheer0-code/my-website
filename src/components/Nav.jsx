@@ -16,6 +16,7 @@ export default function Nav() {
         ) : (
           <>
             <li><Link to="/">Home</Link></li>
+            <li><Link to="/shadowing">Shadowing</Link></li>
             <li><Link to="/vocabulary">Vocabulary</Link></li>
           </>
         )}
